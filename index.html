@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reading Garden – Japanese Fantasy World</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="loading-inner">
+      <div class="kanji-logo">庭</div>
+      <div class="loading-subtitle">Reading Garden</div>
+      <div class="loading-bar-wrap"><div id="loading-bar"></div></div>
+      <div id="loading-text">Preparing the garden…</div>
+    </div>
+  </div>
+
+  <!-- Click-to-start overlay (shown before pointer lock) -->
+  <div id="click-to-start">
+    <div class="cts-inner">
+      <div class="cts-title">Reading Garden</div>
+      <div class="cts-subtitle">A Japanese Fantasy World</div>
+      <div class="cts-click">Click anywhere to explore</div>
+      <div class="cts-controls">
+        <div class="cc-row"><span class="key">WASD</span> Walk</div>
+        <div class="cc-row"><span class="key">Mouse</span> Look around</div>
+        <div class="cc-row"><span class="key">E</span> Sit &amp; read at table</div>
+        <div class="cc-row"><span class="key">Space</span> Lower / raise book</div>
+        <div class="cc-row"><span class="key">← →</span> Flip pages</div>
+        <div class="cc-row"><span class="key">C</span> Order coffee</div>
+        <div class="cc-row"><span class="key">ESC</span> Unlock mouse</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Crosshair (visible when pointer locked) -->
+  <div id="crosshair"></div>
+
+  <!-- Rain screen overlay -->
+  <div id="rain-overlay"></div>
+
+  <!-- Main HUD -->
+  <div id="hud" class="hidden">
+    <div id="hint-box" class="hint hidden"></div>
+
+    <div id="bottom-bar">
+      <button id="btn-upload" class="jp-btn" title="Upload a PDF book to read">
+        📖 Read a Book
+      </button>
+      <button id="btn-coffee" class="jp-btn" title="Order coffee delivery [C]">
+        ☕ Order Coffee
+      </button>
+      <div id="coffee-counter" class="hidden">×<span id="coffee-count">0</span></div>
+    </div>
+
+    <div id="controls-help">
+      <div class="ch-row"><span class="key">WASD</span> Move</div>
+      <div class="ch-row"><span class="key">Mouse</span> Look</div>
+      <div class="ch-row"><span class="key">E</span> Interact</div>
+      <div class="ch-row"><span class="key">C</span> Coffee</div>
+      <div class="ch-row"><span class="key">ESC</span> Unlock</div>
+    </div>
+  </div>
+
+  <!-- Coffee notification -->
+  <div id="coffee-notif" class="hidden">☕ Coffee on its way!</div>
+
+  <!-- ── Reading overlay ──────────────────────────────────────── -->
+  <!--  The 3D canvas keeps rendering behind it.                   -->
+  <!--  backdrop-filter: blur() on #reading-blur blurs it live.    -->
+  <div id="reading-overlay" class="hidden">
+    <!-- blurred background layer -->
+    <div id="reading-blur"></div>
+
+    <!-- book container (slides up/down) -->
+    <div id="book-container">
+      <div id="book-spine"></div>
+      <div id="book-content">
+        <div id="book-header">
+          <span id="book-page-info">1 / 1</span>
+          <button id="book-btn-close" class="icon-btn" title="Close [E]">✕</button>
+        </div>
+        <!-- page canvas — CSS perspective flip animation applied here -->
+        <div id="book-page-wrap">
+          <canvas id="book-page-canvas"></canvas>
+        </div>
+        <div id="book-footer">
+          <button id="book-btn-zoom-out" class="jp-btn sm">−</button>
+          <button id="book-btn-prev"     class="jp-btn sm">◀ Prev</button>
+          <span id="book-hint">Space = lower book • ← → flip pages</span>
+          <button id="book-btn-next"     class="jp-btn sm">Next ▶</button>
+          <button id="book-btn-zoom-in"  class="jp-btn sm">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coffee drinking first-person animation -->
+  <div id="coffee-drink-anim" class="hidden">☕</div>
+
+  <input type="file" id="file-input" accept="application/pdf" style="display:none" />
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
